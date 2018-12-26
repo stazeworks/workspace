@@ -4,7 +4,7 @@
 
 lspci | grep -e VGA -e 3D
 
-echo "Choose video drivers vendor: Intel - 1; AMD - 2; Nvidia - 3; Any other char - Skip: "
+echo "Choose video drivers vendor:  Intel - 1; AMD - 2; Nvidia - 3; Any other char - Skip: "
 read video_driver
 echo "Choosed option: $video_driver"
 
