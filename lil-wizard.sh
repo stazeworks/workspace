@@ -18,7 +18,11 @@ else
   echo "Okay, continue without Video driver..."
 fi
 
-sudo pacman -S --noconfirm xorg-server i3-gaps i3status rxvt-unicode dmenu ttf-linux-libertine ttf-inconsolata
+#sudo echo 'MODULES=(i915)' >> /etc/mkinitcpio.conf
+#sudo echo 'MODULES=(amdgpu)' >> /etc/mkinitcpio.conf
+#sudo echo 'MODULES=(nouveau)' >> /etc/mkinitcpio.conf
+
+sudo pacman -S --noconfirm xorg-server xorg-xinit i3-gaps i3status rxvt-unicode dmenu ttf-linux-libertine ttf-inconsolata
 
 # Fonts confusion? Set manually in ~/.config/fontconfig/fonts.conf
 # Place 'exec i3' in ~/.xinitrc
