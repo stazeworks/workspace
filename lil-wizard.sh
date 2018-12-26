@@ -7,7 +7,7 @@ lspci | grep -e VGA -e 3D
 read -p "Xorg and Drivers: None - 0; Intel - 1; AMD - 2; Nvidia - 3: " video_driver
 if [[ $video_driver == 0 ]]; then
   echo "Okay, continue without Video driver..."
-if [[ $video_driver == 1 ]]; then
+elif [[ $video_driver == 1 ]]; then
   sudo pacman -S xf86-video-intel
 elif [[ $video_driver == 2 ]]; then
   sudo pacman -S xf86-video-amdgpu
