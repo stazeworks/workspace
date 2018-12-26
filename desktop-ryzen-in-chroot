@@ -1,15 +1,18 @@
 #!/bin/bash
 
-# Setup our fresh-instlled Arch Linux!
+# Instal Step #2: In Chroot
+# Now setup our fresh-instlled Arch Linux!
 
-echo '> Setup a hostname for the machine...'
-echo "workstation" > /etc/hostname
 
-echo '> Enable NerworkManager'
-systemctl enable NetworkManager
 
-echo '> Setup a Time Zone...'
+# Time zone
+
+echo '> Now is setup my timezone..'
 ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
+
+
+
+# Localization
 
 echo '> Setup EN/RU language support...'
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
@@ -19,17 +22,43 @@ echo '> Refresh locale in the system...'
 locale-gen
 
 echo '> Setup system default language'
-echo 'LANG="en_US.UTF-8"' > /etc/locale.conf
+echo 'LANG="en_US.UTF-8"' >> /etc/locale.conf
 
 echo '> Setup RU language for console'
 echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 
-echo '> Init RAM boot drive...'
+
+
+# Network configuration
+
+echo '> Setup a hostname for the machine...'
+echo "workstation" > /etc/hostname
+
+echo '> Enable NerworkManager'
+systemctl enable NetworkManager
+
+
+
+# Initramfs
+
+echo '> Init RAM FS...'
 mkinitcpio -p linux
+
+
+
+# Root password
 
 echo '>> Choose a root user password:'
 passwd
+
+
+
+# Mircocode
+# Already installed for AMD only! Info: https://wiki.archlinux.org/index.php/Microcode
+
+
+# GRUB 
 
 echo '> Install GRUB loader to disk...'
 grub-install --target=i386-pc /dev/sda
