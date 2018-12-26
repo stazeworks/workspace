@@ -18,7 +18,7 @@ else
   echo "Okay, continue without Video driver..."
 fi
 
-sudo pacman -S xorg-server xorg-init i3-gaps i3status rxvt-unicode dmenu ttf-linux-libertine ttf-inconsolata
+sudo pacman -S --noconfirm xorg-server i3-gaps i3status rxvt-unicode dmenu ttf-linux-libertine ttf-inconsolata
 
 # Fonts confusion? Set manually in ~/.config/fontconfig/fonts.conf
 # Place 'exec i3' in ~/.xinitrc
