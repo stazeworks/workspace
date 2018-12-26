@@ -42,9 +42,6 @@ echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy
 
-echo '> Download LARBS... Run this after next reboot!'
-curl -LO larbs.xyz/larbs.sh
-
 echo '>>> Reboot...'
 exit
 read -p "Pause 3 seconds..." -t 3
