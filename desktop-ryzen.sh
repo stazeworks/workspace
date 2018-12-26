@@ -76,7 +76,7 @@ echo '> I\`ll setup a RU mirror for download my packages'
 echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
 echo '> Install packages...'
-pacstrap /mnt base base-devel networkmanager grub-bios vim
+pacstrap /mnt base base-devel networkmanager grub-bios vim amd-ucode
 
 echo '> Generating FS tabulation...'
 genfstab -pU /mnt >> /mnt/etc/fstab
