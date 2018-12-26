@@ -22,3 +22,4 @@ sudo pacman -S xorg-server xorg-init i3-gaps i3status rxvt-unicode dmenu ttf-lin
 
 # Fonts confusion? Set manually in ~/.config/fontconfig/fonts.conf
 # Place 'exec i3' in ~/.xinitrc
+echo "Done"
