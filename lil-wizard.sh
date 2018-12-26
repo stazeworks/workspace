@@ -11,11 +11,11 @@ echo "Choosed option: $video_driver"
 if [ $video_driver = 0 ]
     then echo "Okay, continue without Video driver..."
 if [ $video_driver = 1 ]
-  then sudo pacman -S xf86-video-intel
+  then pacman -S xf86-video-intel
 if [ $video_driver = 2 ]
-  then sudo pacman -S xf86-video-amdgpu
+  then pacman -S xf86-video-amdgpu
 if [ $video_driver = 3 ]
-  then sudo pacman -S nvidia
+  then pacman -S nvidia
 fi
 
 sudo pacman -S xorg-server xorg-init i3-gaps i3status rxvt-unicode dmenu ttf-linux-libertine ttf-inconsolata
