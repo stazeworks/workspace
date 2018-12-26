@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 # Post-install processing. Run under root superuser.
 
 
