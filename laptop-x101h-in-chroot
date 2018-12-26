@@ -53,8 +53,22 @@ passwd
 
 
 
+# Make new user
+
+useradd -m -g users -G wheel -s /bin/bash staze
+passwd staze
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+
+
+
+# Update packages 
+pacman -Syu
+
+
+
 # Mircocode
 # Already installed for AMD only! Info: https://wiki.archlinux.org/index.php/Microcode
+
 
 
 # GRUB
