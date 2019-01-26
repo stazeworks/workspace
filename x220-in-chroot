@@ -15,16 +15,16 @@ mkinitcpio -p linux
 useradd -m -G wheel,systemd-journal -s /bin/bash staze
 passwd staze
 
-cat > /etc/sudoers.d/kyaulabs << EOF
+cat > /etc/sudoers.d/staze << EOF
 Defaults editor=/usr/bin/rvim
 Defaults env_keep += "SSH_AUTH_SOCK"
 %wheel ALL=(ALL) ALL
 ALL ALL=(ALL) /usr/sbin/checkupdates
 EOF
 
-#refind-install --usedefault /dev/sdX2 --alldrivers
-#vim /boot/EFI/BOOT/refind.conf //:r !blkid -s PARTUUID -o value /dev/sda1
-                               //:r !blkid -s PARTUUID -o value /dev/sda2
+refind-install --usedefault /dev/sda2 --alldrivers
+#vim /boot/EFI/BOOT/refind.conf #:r !blkid -s PARTUUID -o value /dev/sda1
+                                #:r !blkid -s PARTUUID -o value /dev/sda2
 #scan_driver_dirs EFI/BOOT/drivers
 #menuentry "Arch Linux"
 #  icon /EFI/BOOT/icons/os_arch.png
