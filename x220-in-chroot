@@ -1,0 +1,34 @@
+passwd
+sed -i 's/^MODULES=()/MODULES=(crc32_generic crc32c-intel)/' /etc/mkinitcpio.conf
+vim /etc/mkinitcpio.conf //HOOKS="systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck"
+sed -i 's/^MODULES=()/MODULES=(atkbd crc32_generic crc32c-intel i915)/' /etc/mkinitcpio.conf
+
+mkinitcpio -p linux
+
+useradd -m -G wheel,systemd-journal -s /bin/bash staze
+passwd staze
+
+cat > /etc/sudoers.d/kyaulabs << EOF
+Defaults editor=/usr/bin/rvim
+Defaults env_keep += "SSH_AUTH_SOCK"
+%wheel ALL=(ALL) ALL
+ALL ALL=(ALL) /usr/sbin/checkupdates
+EOF
+
+#refind-install --usedefault /dev/sdX2 --alldrivers
+#vim /boot/EFI/BOOT/refind.conf //:r !blkid -s PARTUUID -o value /dev/sda1
+                               //:r !blkid -s PARTUUID -o value /dev/sda2
+#scan_driver_dirs EFI/BOOT/drivers
+#menuentry "Arch Linux"
+#  icon /EFI/BOOT/icons/os_arch.png
+#  volume "XXXXXXXX-sdX2-boot-UEFI-XXXXXXXXXXXX"
+#  loader /vmlinuz-linux
+#  initrd /initramfs-linux.img
+#  options "root=PARTUUID=XXXXXXXX-sdX2-root-ext4-XXXXXXXXXXXX rw add_efi_memmap initrd=\intel-ucode.img"
+#  submenuentry "Boot using fallback initramfs" {
+#    initrd /initramfs-linux-fallback.img
+#  }
+#  submenuentry "Boot to terminal"
+#    add_options "systemd.unit=multi-user.target"
+#  }
+#}
