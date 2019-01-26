@@ -1,0 +1,33 @@
+loadkeys ru
+setfont cyr-sun16
+
+lsblk
+dd if=/dev/zero of=/dev/sdX bs=1k count=2048
+sgdisk -Z -o /dev/sda
+sgdisk -n 1:0:-512M -n 2:-512M:-0 -t 1:8300 -t 2:ef00 /dev/sda
+sgdisk -c 1:"Aquinas" -c 2:"Thomas" /dev/sda
+
+cryptsetup -c aes-xts-plain64 -l 512 -h sha512 -i 3500 -y --use-random --type luks2 luksFormat /dev/sda1
+cryptsetup open --type luks2 /dev/sda1 cryptlvm
+pvcreate /dev/mapper/cryptlvm
+vgcreate x220 /dev/mapper/cryptlvm
+
+lvcreate -L 8G x220 --name swap
+lvcreate -l +100%FREE x220 --name root
+lvs
+
+mkfs.ext4 /dev/sda2
+mkfs.ext4 -O metadata_csum /dev/mapper/x220-root
+mkswap /dev/mapper/x220-swap
+
+mount /dev/mapper/x220-root /mnt
+mkdir /mnt/boot
+mount /dev/sdX2 /mnt/boot
+pacstrap /mnt base base-devel efibootmgr git intel-ucode refind-efi sudo vim wpa_supplicant
+
+genfstab -pU /mnt >> /mnt/etc/fstab
+blkid /dev/sda1 && blkid /dev/sda2 && cat /mnt/etc/fstab
+sed -i 's/relatime\t/relatime,journal_checksum\t/' /mnt/etc/fstab
+echo -e "/dev/mapper/x220-swap\tnone\tswap\tdefaults\t0\t0" | sudo tee --append /mnt/etc/fstab
+
+arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/x220-in-chroot)"
