@@ -6,9 +6,8 @@ echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 
 passwd
-sed -i 's/^MODULES=()/MODULES=(crc32_generic crc32c-intel)/' /etc/mkinitcpio.conf
-vim /etc/mkinitcpio.conf //HOOKS="systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck"
 sed -i 's/^MODULES=()/MODULES=(atkbd crc32_generic crc32c-intel i915)/' /etc/mkinitcpio.conf
+vim /etc/mkinitcpio.conf //HOOKS="systemd autodetect keyboard sd-vconsole modconf block sd-encrypt sd-lvm2 filesystems fsck"
 
 mkinitcpio -p linux
 
