@@ -1,0 +1,3 @@
+vim /etc/mkinitcpio.conf // MODULES: i915
+                         // HOOKS: encrypt lvm2 in between block and filesystems
+ 
