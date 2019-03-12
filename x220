@@ -16,11 +16,9 @@ dd if=/dev/zero of=/dev/sdA  bs=512  count=1
   echo n;
   echo;
   echo;
-  echo;
   echo +400M;
 
   echo n;
-  echo;
   echo;
   echo;
   echo;
