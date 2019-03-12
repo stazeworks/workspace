@@ -1,3 +1,26 @@
 vim /etc/mkinitcpio.conf // MODULES: i915
                          // HOOKS: encrypt lvm2 in between block and filesystems
- 
+                         
+mkinitcpio -p linux
+
+vim /etc/locale.gen // uncomment en_US.UTF-8
+locale-gen
+
+vim /etc/ssh/sshd_config // PermitRootLogin yes (temporary)
+systemctl enable sshd.service
+
+passwd
+
+vim /etc/default/grub // add cryptdevice=<PARTUUID>:volgroup0 to the GRUB_CMDLINE_LINUX_DEFAULT line 
+                      // If using standard device naming, the option will look like this: cryptdevice=/dev/sda3:volgroup0
+                      
+mkdir /boot/EFI
+mount /dev/sda1 /boot/EFI
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+grub-mkconfig -o /boot/grub/grub.cfg
+
+fallocate -l 12G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
