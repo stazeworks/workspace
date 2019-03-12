@@ -7,7 +7,6 @@ setfont cyr-sun16
   echo n;
   echo;
   echo;
-  echo;
   echo +300M;
   echo t;
   echo 1;
