@@ -1,0 +1,32 @@
+loadkeys ru
+setfont cyr-sun16
+
+(
+  echo g;
+
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo +300M;
+  echo t;
+  echo 1;
+  
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo +400M;
+
+  echo n;
+  echo;
+  echo;
+  echo;
+  echo;
+  echo t;
+  echo 3;
+  echo 31;
+
+  echo p;
+  echo w;
+) | fdisk /dev/sda
