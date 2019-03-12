@@ -41,7 +41,10 @@ fi
   echo w;
 ) | fdisk /dev/sda
 
+sleep 5
 mkfs.fat -F32 /dev/sda1
+
+sleep 1
 mkfs.ext2 /dev/sda2
 
 
