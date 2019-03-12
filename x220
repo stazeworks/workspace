@@ -68,4 +68,4 @@ mkdir /mnt/boot
 mkdir /mnt/home
 mount /dev/sda2 /mnt/boot
 mount /dev/volgroup0/lv_home /mnt/home
-pacstrap -i /mnt base base-devel intel-ucode grub efibootmgr dosfstools openssh mtools linux-headers linux-lts linux-lts-headers iw wpa_supplicant dialog
+pacstrap /mnt base base-devel intel-ucode grub efibootmgr dosfstools openssh mtools linux-headers linux-lts linux-lts-headers iw wpa_supplicant dialog
