@@ -18,30 +18,47 @@ fi
   echo g;
 
   echo n;
+  sleep 1;
   echo;
+  sleep 1;
   echo;
+  sleep 1;
   echo +300M;
+  sleep 1;
   echo t;
+  sleep 1;
   echo 1;
   
+  sleep 1;
   echo n;
+  sleep 1;
   echo;
+  sleep 1;
   echo;
+  sleep 1;
   echo +400M;
 
   echo n;
+  sleep 1;
   echo;
+  sleep 1;
   echo;
+  sleep 1;
   echo;
+  sleep 1;
   echo t;
+  sleep 1;
   echo 3;
+  sleep 1;
   echo 31;
 
+  sleep 1;
   echo p;
+  sleep 1;
   echo w;
 ) | fdisk /dev/sda
 
-sleep 5
+sleep 1
 mkfs.fat -F32 /dev/sda1
 
 sleep 1
