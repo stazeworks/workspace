@@ -5,7 +5,7 @@ echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 echo "1. WIPEOUT";
 echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 
-dd if=/dev/zero of=/dev/sda bs=1M status=progress
+dd if=/dev/zero of=/dev/sda bs=1G status=progress
 
 (
   echo g;
