@@ -6,7 +6,13 @@ echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 echo "1. WIPEOUT";
 echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 
-dd if=/dev/zero of=/dev/sda bs=4M status=progress
+echo "W I P E O U T  Yours  /dev/sda?"
+read -p "0 - NO, 1 - YEZ: " wipeout
+if [[ $wipeout == 0 ]]; then
+  echo "Okay, let go!"
+elif [[ $wipeout == 1 ]]; then
+  dd if=/dev/zero of=/dev/sda bs=4M status=progress
+fi
 
 (
   echo g;
