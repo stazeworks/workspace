@@ -1,6 +1,8 @@
 loadkeys ru
 setfont cyr-sun16
 
+dd if=/dev/zero of=/dev/sdA  bs=512  count=1
+
 (
   echo g;
 
