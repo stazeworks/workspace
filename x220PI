@@ -46,5 +46,5 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 echo "exec i3" >> ~/.xinitrc
 
 // Windows Manager
-sudo pacman -Sy i3blocks i3lock i3status dmenu ttf-inconsolate noto-fonts
+sudo pacman -Sy i3blocks i3lock i3status dmenu ttf-inconsolata noto-fonts
 
