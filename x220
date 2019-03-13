@@ -81,7 +81,7 @@ mkdir /mnt/home
 mount /dev/sda2 /mnt/boot
 mount /dev/volgroup0/lv_home /mnt/home
 
-pacstrap /mnt base base-devel vim intel-ucode networkmanager grub efibootmgr dosfstools openssh mtools linux-headers iw wpa_supplicant dialog
+pacstrap /mnt base base-devel vim git intel-ucode networkmanager grub efibootmgr dosfstools openssh mtools linux-headers iw wpa_supplicant dialog
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/x220CH)"
