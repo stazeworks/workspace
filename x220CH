@@ -3,8 +3,15 @@ vim /etc/mkinitcpio.conf // MODULES: i915
                          
 mkinitcpio -p linux
 
-vim /etc/locale.gen // uncomment en_US.UTF-8
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
+
+echo 'LANG="en_US.UTF-8"' >> /etc/locale.conf
+echo 'KEYMAP=ru' >> /etc/vconsole.conf
+echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
+
+echo "aqiunas" > /etc/hostname
 
 vim /etc/ssh/sshd_config // PermitRootLogin yes (temporary)
 systemctl enable sshd.service
@@ -24,6 +31,17 @@ fallocate -l 12G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
 echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+
+ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
+
+useradd -m -g users -G wheel -s /bin/bash staze
+passwd staze
+
+echo '[multilib]' >> /etc/pacman.conf
+echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+
+systemctl enable NetworkManager
+
 exit
 umount -a
 reboot
