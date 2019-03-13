@@ -67,7 +67,7 @@ echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 pvcreate /dev/mapper/lvm
 vgcreate volgroup0 /dev/mapper/lvm
 lvcreate -L 30GB volgroup0 -n lv_root
-lvcreate -L 69GB volgroup0 -n lv_home
+lvcreate -L 81GB volgroup0 -n lv_home
 
 modprobe dm_mod
 vgscan
@@ -81,7 +81,7 @@ mkdir /mnt/home
 mount /dev/sda2 /mnt/boot
 mount /dev/volgroup0/lv_home /mnt/home
 
-pacstrap /mnt base base-devel vim intel-ucode grub efibootmgr dosfstools openssh mtools linux-headers iw wpa_supplicant dialog
+pacstrap /mnt base base-devel vim intel-ucode networkmanager grub efibootmgr dosfstools openssh mtools linux-headers iw wpa_supplicant dialog
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/x220CH)"
