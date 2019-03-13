@@ -6,7 +6,7 @@ echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 echo "1. WIPEOUT";
 echo "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>";
 
-echo "W I P E O U T  Yours  /dev/sda?"
+echo "It will W I P E O U T yours /dev/sda?"
 read -p "0 - NO, 1 - YEZ: " wipeout
 if [[ $wipeout == 0 ]]; then
   echo "Okay, let go!"
@@ -18,43 +18,29 @@ fi
   echo g;
 
   echo n;
-  sleep 1;
   echo;
-  sleep 1;
   echo;
-  sleep 1;
   echo +300M;
-  sleep 1;
+  echo Y;
   echo t;
-  sleep 1;
   echo 1;
   
-  sleep 1;
   echo n;
-  sleep 1;
   echo;
-  sleep 1;
   echo;
-  sleep 1;
   echo +400M;
-
+  echo Y;
+  
   echo n;
-  sleep 1;
   echo;
-  sleep 1;
   echo;
-  sleep 1;
   echo;
-  sleep 1;
+  echo Y;
   echo t;
-  sleep 1;
   echo 3;
-  sleep 1;
   echo 31;
 
-  sleep 1;
   echo p;
-  sleep 1;
   echo w;
 ) | fdisk /dev/sda
 
