@@ -1,0 +1,40 @@
+// AUR
+cd ~
+mkdir post-install
+cd post install
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+// Battery/CPU
+pacman -Sy tlp tp_smapi acpi_call powertop
+systemctl enable tlp
+systemctl enable tlp-sleep
+systemctl mask systemd-rfkill.service
+systemctl mask systemd-rfkill.socket
+
+// Fan Control
+pacman -Sy acpi lm_sensors
+yay -Sy thinkfan
+sudo sensors-detect
+sudo modprobe thinkpad_acpi
+
+sudo vim /etc/thinkfan.conf // 
+sudo thinkfan -n
+sudo systemctl enable thinkfan
+sudo systemctl start thinkfan
+
+// Weekly TRIM
+sudo systemctl enable fstrim.timer
+sudo vim /etc/lvm/lvm.conf // for SSDs -> issue_discards = 1
+
+// S.M.A.R.T Monitoring
+yay -Sy smartmontools
+sudo smartctl -H /dev/sda
+sudo sed -i 's/^DEVICESCAN/DEVICESCAN -m address\@domain.com -M exec \/usr\/local\/bin\/smartdnotify/' /etc/smartd.conf
+sudo vim /usr/local/bin/smartdnotify // -> #!/bin/sh
+                                     //    sudo -u kyau DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/kyau/bus notify-send \
+                                     //    "S.M.A.R.T Error ($SMARTD_FAILTYPE)" "$SMARTD_MESSAGE" --icon=dialog-warning
+sudo chmod +x /usr/local/bin/smartdnotify
+sudo systemctl start smartd
+
