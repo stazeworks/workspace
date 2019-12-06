@@ -1,19 +1,23 @@
 #!/bin/sh
 
 # VARS
-[ -z "$installDisk" ] && installDisk="sdb"
-
+if [ -z "$target" ]; then
+read -p "Installation disk is: (sdX)" value
+echo "Install system into: $target"
+else
+echo "Install system into: $target"
+fi
 # FUCNTIONS
 
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 
 checkBios() { \
-	if [ -d /sys/firmware/efi/efivars ]; then
-    echo "Fine. We are on UEFI install, keep going."
-  else
-    error "No way, man. UEFI ONLY!"
-  fi
-  }
+if [ -d /sys/firmware/efi/efivars ]; then
+echo "Fine. We are on UEFI install, keep going."
+else
+error "No way, man. UEFI ONLY!"
+fi
+}
 
 
 # CHECKS
