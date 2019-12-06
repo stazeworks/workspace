@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # CHECKS
-
+checkBios
 
 
 
 # PARTITION
-parted /dev/sda mklabel gpt mkpart P1 ext3 1MiB 8MiB 
+#parted /dev/sda mklabel gpt mkpart P1 ext3 1MiB 8MiB 
 
 
 # INSTALL PROCESS
