@@ -12,7 +12,7 @@ fi
 
 # FUCNTIONS
 
-log() { echo -e "[*] [$1] [$date] [$2]" }
+log() { echo -e "[*] [$1] [$(date -u)] [$2]"; }
 
 error() { clear; printf "[*] [ERROR]:\\n%s\\n" "$1"; exit;}
 
