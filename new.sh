@@ -4,7 +4,7 @@
 dateLog=$(date --rfc-3339='seconds')
 
 if [ -z "$target" ]; then
-	read -p "Which DISK we'll be use to install our workspase? (sdX)" target
+	read -p "Which DISK we'll be use to install our workspase? (sdX) " target
 	log OK "Install system into: $target"
 else
 	log DONE "Install system into: $target"
