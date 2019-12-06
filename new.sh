@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "[*] [START] Let battle begins!"
-
 # VARS
 
 if [ -z "$target" ]; then
@@ -14,7 +12,7 @@ fi
 
 # FUCNTIONS
 
-log() { echo -e "[*] [$log] [$msg]" }
+log() { echo -e "[*] [$1] [$date] [$2]" }
 
 error() { clear; printf "[*] [ERROR]:\\n%s\\n" "$1"; exit;}
 
@@ -43,6 +41,7 @@ partiotion() {
 
 # RUN IN ORDER
 
+log START "Let battle begins!"
 checkBios
 partiotion
 
