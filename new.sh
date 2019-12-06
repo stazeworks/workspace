@@ -25,7 +25,7 @@ checkBios() {
 }
 
 partiotion() {
-	log INFO "\nPartiotions"
+	log "" "\nPartiotions"
 	log "" "\n   [#] ---- Before: ---- [#]\n"
 	lsblk
 	echo -e "[#] ------------------- [#]"
