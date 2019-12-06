@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "[*]  HELLO!"
+echo "[*] HELLO!"
 
 # VARS
 
@@ -25,6 +25,7 @@ fi
 }
 
 partiotion() {
+	echo "[*] Partiotion"
 	echo "[*] Before parted:"
 	lsblk
 	echo -e "[*] -------------------\n"
