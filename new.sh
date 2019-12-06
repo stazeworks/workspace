@@ -12,9 +12,9 @@ fi
 
 # FUCNTIONS
 
-log() { echo -e "[*] [$1] [$(date -u)] [$2]"; }
+log() { echo -e "[*] [$(date --rfc-3339=FTM)] [$1] $2"; }
 
-error() { clear; printf "[*] [ERROR]:\\n%s\\n" "$1"; exit;}
+error() { clear; printf "[*] [$(date --rfc-3339=FTM)] [ERROR]:\\n%s\\n" "$1"; exit;}
 
 checkBios() {
 	if [ -d /sys/firmware/efi/efivars ]; then
@@ -25,7 +25,7 @@ checkBios() {
 }
 
 partiotion() {
-	log INFO "Partiotions\\n [#] ---- Before: ---- [#]"
+	log INFO "Partiotions\\n   [#] ---- Before: ---- [#]"
 	lsblk
 	echo -e "[#] ------------------- [#]\n"
 	parted /dev/$target --script mklabel gpt \
@@ -33,7 +33,7 @@ partiotion() {
 		set 1 esp on \
 		mkpart primary ext2 300MiB 700MiB \
 		mkpart primary ext4 700MiB 100%
-	log INFO "Partiotions\\n [#] ---- After: ---- [#]"
+	log INFO "Partiotions\\n   [#] ---- After: ---- [#]"
 	lsblk
 	echo -e "[#] ------------------- [#]\n"
 }
