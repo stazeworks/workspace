@@ -14,7 +14,7 @@ fi
 
 log() { echo -e "[*] [$(date --rfc-3339=FTM)] [$1] $2"; }
 
-error() { clear; printf "[*] [$(date --rfc-3339=FTM)] [ERROR]:\\n%s\\n" "$1"; exit;}
+error() { clear; printf "[*] [$(date --rfc-3339='date')] [ERROR]:\\n%s\\n" "$1"; exit;}
 
 checkBios() {
 	if [ -d /sys/firmware/efi/efivars ]; then
