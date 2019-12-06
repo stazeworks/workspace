@@ -3,10 +3,10 @@
 # VARS
 
 if [ -z "$target" ]; then
-	read -p "Installation disk is: (sdX) " target
-	echo "[*] [OK] Install system into: $target"
+	read -p "Which > sdX < we'll be use to install our workspase? " target
+	log OK "Install system into: $target"
 else
-	echo "[*] [DONE] Install system into: $target"
+	log DONE "Install system into: $target"
 fi
 
 
