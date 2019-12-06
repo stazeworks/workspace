@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # VARS
+dateLog=$(date --rfc-3339='date')
 
 if [ -z "$target" ]; then
 	read -p "Which > sdX < we'll be use to install our workspase? " target
@@ -12,9 +13,9 @@ fi
 
 # FUCNTIONS
 
-log() { echo -e "[*] [$(date --rfc-3339=FTM)] [$1] $2"; }
+log() { echo -e "[*] [$dateLog] [$1] $2"; }
 
-error() { clear; printf "[*] [$(date --rfc-3339='date')] [ERROR]:\\n%s\\n" "$1"; exit;}
+error() { clear; printf "[*] [$dateLog] [ERROR]:\\n%s\\n" "$1"; exit;}
 
 checkBios() {
 	if [ -d /sys/firmware/efi/efivars ]; then
