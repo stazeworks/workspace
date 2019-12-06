@@ -1,43 +1,43 @@
 #!/bin/bash
 
-echo "[*] HELLO!"
+echo "[*] [START] Let battle begins!"
 
 # VARS
 
 if [ -z "$target" ]; then
 	read -p "Installation disk is: (sdX) " target
-	echo "Install system into: $target"
+	echo "[*] [OK] Install system into: $target"
 else
-	echo "Install system into: $target"
+	echo "[*] [DONE] Install system into: $target"
 fi
 
 
 # FUCNTIONS
 
-error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
+log() { echo -e "[*] [$log] [$msg]" }
 
-checkBios() { \
-if [ -d /sys/firmware/efi/efivars ]; then
-	echo "[*] UEFI detected."
-else
-	error "No way, man. UEFI ONLY!"
-fi
+error() { clear; printf "[*] [ERROR]:\\n%s\\n" "$1"; exit;}
+
+checkBios() {
+	if [ -d /sys/firmware/efi/efivars ]; then
+		log LOG "[*] [OK] UEFI detected."
+	else
+		error "It\'s BIVOS, not UEFI!"
+	fi
 }
 
 partiotion() {
-	echo "[*] Partiotions"
-	echo "[*] Before parted:"
-	echo -e "[*] -------------------\n"
+	log INFO "Partiotions\\n [#] ---- Before: ---- [#]"
 	lsblk
-	echo -e "[*] -------------------\n"
-	parted /dev/$target --script mklabel gpt mkpart primary fat32 1MiB 300MiB
-	parted /dev/$target --script set 1 esp on
-	parted /dev/$target --script mkpart primary ext2 300MiB 700MiB
-	parted /dev/$target --script mkpart primary ext4 700MiB 100%
-	echo "[*] After parted:"
-	echo -e "[*] -------------------\n"
+	echo -e "[#] ------------------- [#]\n"
+	parted /dev/$target --script mklabel gpt \
+		mkpart primary fat32 1MiB 300MiB \
+		set 1 esp on \
+		mkpart primary ext2 300MiB 700MiB \
+		mkpart primary ext4 700MiB 100%
+	log INFO "Partiotions\\n [#] ---- After: ---- [#]"
 	lsblk
-	echo -e "[*] -------------------\n"
+	echo -e "[#] ------------------- [#]\n"
 }
 
 
