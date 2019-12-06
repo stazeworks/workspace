@@ -10,7 +10,6 @@ else
 	log DONE "Install system into: $target"
 fi
 
-
 # FUCNTIONS
 
 log() { echo -e "[*] [$dateLog] [$1] $2"; }
@@ -26,7 +25,8 @@ checkBios() {
 }
 
 partiotion() {
-	log INFO "Partiotions\\n   [#] ---- Before: ---- [#]"
+	log INFO "\nPartiotions"
+	log "" "\n   [#] ---- Before: ---- [#]\n"
 	lsblk
 	echo -e "[#] ------------------- [#]"
 	parted /dev/$target --script mklabel gpt \
@@ -34,7 +34,7 @@ partiotion() {
 		set 1 esp on \
 		mkpart primary ext2 300MiB 700MiB \
 		mkpart primary ext4 700MiB 100%
-	log INFO "   [#] ---- After: ---- [#]"
+	log "" "\n   [#] ---- After: ---- [#]\n"
 	lsblk
 	echo -e "[#] ------------------- [#]\n"
 }
