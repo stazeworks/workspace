@@ -26,7 +26,7 @@ checkBios() {
 
 partiotion() {
 	echo -e "\nPartiotions"
-	echo -e "\n   [#] ---- BEFORE: ---- [#]\n"
+	echo -e "\n   [#] ---- BEFORE: ---- [#]"
 	lsblk
 	echo -e "[#] ------------------- [#]"
 	parted /dev/$target --script mklabel gpt \
@@ -34,9 +34,9 @@ partiotion() {
 		set 1 esp on \
 		mkpart primary ext2 300MiB 700MiB \
 		mkpart primary ext4 700MiB 100%
-	echo -e "\n   [#] ---- AFTER: ---- [#]\n"
+	echo -e "\n   [#] ---- AFTER: ---- [#]"
 	lsblk
-	echo -e "[#] ------------------- [#]"
+	echo -e "[#] ------------------- [#]\n"
 }
 
 
@@ -52,6 +52,7 @@ partiotion
 loadkeys ru
 setfont cyr-sun16
 timedatectl set-ntp true
+timedatectl status
 
 
 
