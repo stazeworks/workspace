@@ -1,6 +1,8 @@
 #!/bin/sh
-
+echo "ALLO"
 # VARS
+
+
 if [ -z "$target" ]; then
 read -p "Installation disk is: (sdX)" value
 echo "Install system into: $target"
