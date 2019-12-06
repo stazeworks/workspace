@@ -40,6 +40,8 @@ parted /dev/$target --script mkpart primary ext4 700MiB 100%
 echo "[*] After parted:"
 lsblk
 echo "[*] -------------------"
+
+
 # INSTALL PROCESS
 
 loadkeys ru
