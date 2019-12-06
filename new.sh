@@ -30,8 +30,10 @@ checkBios
 
 
 # PARTITION
-parted /dev/$target mklabel gpt mkpart P1 ext3 1MiB 8MiB 
-
+parted /dev/$target --script mklabel gpt mkpart primary fat32 1MiB 300MiB 
+parted /dev/$target --script set 1 esp on
+parted /dev/$target --script mkpart primary ext2 300MiB 700MiB
+parted /dev/$target --script mkpart primary ext4 700MiB 100%
 
 # INSTALL PROCESS
 
