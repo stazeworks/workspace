@@ -25,8 +25,8 @@ checkBios() {
 }
 
 partiotion() {
-	log "" "\nPartiotions"
-	log "" "\n   [#] ---- Before: ---- [#]\n"
+	echo -e "\nPartiotions"
+	echo -e "\n   [#] ---- BEFORE: ---- [#]\n"
 	lsblk
 	echo -e "[#] ------------------- [#]"
 	parted /dev/$target --script mklabel gpt \
@@ -34,9 +34,9 @@ partiotion() {
 		set 1 esp on \
 		mkpart primary ext2 300MiB 700MiB \
 		mkpart primary ext4 700MiB 100%
-	log "" "\n   [#] ---- After: ---- [#]\n"
+	echo -e "\n   [#] ---- AFTER: ---- [#]\n"
 	lsblk
-	echo -e "[#] ------------------- [#]\n"
+	echo -e "[#] ------------------- [#]"
 }
 
 
