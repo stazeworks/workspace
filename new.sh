@@ -38,12 +38,10 @@ partiotion() {
 }
 
 
-# CHECKS
+# RUN IN ORDER
+
 checkBios
-
-
-# PARTITION
-
+partiotion
 
 
 # INSTALL PROCESS
