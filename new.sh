@@ -5,7 +5,7 @@ echo "HELLO"
 # VARS
 
 if [ -z "$target" ]; then
-	read -p "Installation disk is: (sdX)" target
+	read -p "Installation disk is: (sdX) " target
 	echo "Install system into: $target"
 else
 	echo "Install system into: $target"
