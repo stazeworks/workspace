@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Run in target machine:
+# pacman -Sy openssh && service start sshd && passwd
+# curl -LO https://raw.githubusercontent.com/stazeworks/workspace/master/x220.sh | sh
+
 # Function decloration
 #  Logs
 log() { echo -e "[*] [$dateLog] [$1] $2"; }
@@ -35,9 +39,10 @@ partiotion() {
 
 	parted -s /dev/sda mklabel gpt \
 		mkpart efi '0%' '512MB' \
-		mkpart crypt 513MB '100%' \
+		mkpart crypt ext4 513MB '100%' \
 		set 1 esp on \
-		set 1 boot on print
+		set 1 boot on print &&
+		mkfs.ext4 /dev/sda2
 
 	echo -e "\n   [#] ---- AFTER: ---- [#]"
 	lsblk
