@@ -46,8 +46,8 @@ partiotion() {
 # Function execution
 
 log START "Let's do dis!"
-lsblk
-checkBios
+# lsblk
+preinstall
 partiotion
 
 ping ntp.org -c 3
