@@ -27,10 +27,10 @@ preinstall() {
 }
 
 partiotion() {
-	echo -e "\nP A R T I T I O N S\n"
+	echo -e "\n      P A R T I T I O N S\n"
 	echo -e "\n   [#] ---- BEFORE: ---- [#]\n"
 	lsblk
-	echo -e "\n[#] ------------------- [#]/n"
+	echo -e "\n   [#] ----------------- [#]\n"
 
 	parted -s /dev/sda mklabel gpt \
 		mkpart efi '0%' '512MB' \
@@ -40,7 +40,7 @@ partiotion() {
 
 	echo -e "\n   [#] ---- AFTER: ---- [#]"
 	lsblk
-	echo -e "[#] ------------------- [#]\n"
+	echo -e "\n   [#] ---------------- [#]\n"
 }
 
 # Function execution
