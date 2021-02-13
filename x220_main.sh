@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Logs
 dateLog=$(date --rfc-3339='seconds')
