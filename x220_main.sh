@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 # Logs
 dateLog=$(date --rfc-3339='seconds')
 log() { echo -e "[*] [$dateLog] [$1] $2"; }
 
-selectDisk() {
+selectDisk() 
+{
 	if [ -z "$target" ]; then
 		read -p "Which DISK we'll be use to install our workspase? (sdX) " target
 		log OK "Install system into: $target"
