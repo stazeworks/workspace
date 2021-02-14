@@ -18,6 +18,16 @@ selectDisk() {
 	fi
 }
 
+wipeoutDisk() {
+	echo "It will W I P E O U T yours /dev/sda?"
+	read -p "0 - NO, 1 - YEZ: " wipeout
+	if [[ $wipeout == 0 ]]; then
+		echo "Okay, let go!"
+	elif [[ $wipeout == 1 ]]; then
+		dd if=/dev/zero of=/dev/sda bs=4M status=progress
+	fi
+}
+
 preinstall() {
 	if [ -d /sys/firmware/efi/efivars ]; then
 		log INFO "[UEFI] / bios"
