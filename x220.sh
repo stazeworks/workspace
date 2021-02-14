@@ -23,7 +23,7 @@ read -p "0 - NO, 1 - YEZ: " wipeout
 if [[ $wipeout == 0 ]]; then
 	echo "Okay, let's go!"
 elif [[ $wipeout == 1 ]]; then
-	dd if=/dev/urandom of=/dev/sda bs=1M count=2
+	dd if=/dev/urandom of=/dev/sda bs=1M count=100
 fi
 
 preinstall() {
@@ -110,5 +110,7 @@ pacstrap /mnt base linux linux-firmware vim git intel-ucode efibootmgr openssh w
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 # arch-chroot /mnt bash
+# arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/laptop-x101h-in-chroot)"
+
 
 log INFO "Chroot into installed Archlinux"
