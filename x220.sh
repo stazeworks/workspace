@@ -49,8 +49,7 @@ partiotion() {
 		mkpart efi '0%' '512MB' \
 		mkpart crypt 513MB '100%' \
 		set 1 esp on \
-		set 1 boot on print &&
-		mkfs.ext4 /dev/sda2
+		set 1 boot on print
 
 	echo -e "\n   [#] ---- AFTER: ---- [#]"
 	lsblk
