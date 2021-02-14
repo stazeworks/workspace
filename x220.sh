@@ -23,7 +23,7 @@ read -p "0 - NO, 1 - YEZ: " wipeout
 if [[ $wipeout == 0 ]]; then
 	echo "Okay, let's go!"
 elif [[ $wipeout == 1 ]]; then
-	dd if=/dev/zero of=/dev/sda bs=4M status=progress
+	dd if=/dev/urandom of=/dev/sda bs=1M count=2
 fi
 
 preinstall() {
