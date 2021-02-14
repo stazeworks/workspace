@@ -102,8 +102,8 @@ mount /dev/vg0/home /mnt/home
 log INFO "Disk mount is over"
 
 
-log INFO "Set hardcoded mirror (yandex)"
-Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch > /etc/pacman.d/mirrorlist
+# log INFO "Set hardcoded mirror (yandex)"
+# Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch > /etc/pacman.d/mirrorlist
 
 log INFO "\nInstalling system. Setup Pacman:\n"
 pacstrap /mnt base linux linux-firmware vim git intel-ucode efibootmgr openssh wpa_supplicant dhcpcd cryptsetup lvm2
