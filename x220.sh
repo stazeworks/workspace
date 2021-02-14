@@ -61,7 +61,6 @@ partiotion() {
 
 log START "Let's do dis!"
 # lsblk
-wipeoutDisk
 preinstall
 partiotion
 
