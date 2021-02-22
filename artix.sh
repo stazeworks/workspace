@@ -71,6 +71,7 @@ ls /sys/firmware/efi/efivars
 # 7. Wipeout target disk
 lsblk
 # Wipeout LVM?
+umount /dev/sda
 dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sda oflag=direct status=progress count=300000 && sync
 pvremove -y -ff /dev/sda*
 
@@ -78,14 +79,15 @@ pvremove -y -ff /dev/sda*
 sudo parted -s /dev/sda mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
 
 # 8. LUKS crypt
-cryptsetup luksFormat /dev/sda2
-cryptsetup open /dev/sda2 cryptlvm
+cryptsetup benchmark
+cryptsetup --verbose --type luks1 --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --iter-time 10000 --use-random --verify-passphrase luksFormat /dev/sda2
 
+cryptsetup luksOpen /dev/sda2 crypt
 # 9. LVM setup
 vgscan
 vgchange -ay
 
-vgcreate vg0 /dev/mapper/cryptlvm
+vgcreate vg0 /dev/mapper/crypt
 lvcreate -L 50G vg0 -n root
 lvcreate -L 173G vg0 -n home
 
