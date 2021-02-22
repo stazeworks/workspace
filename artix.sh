@@ -56,6 +56,7 @@ timedatectl status
 ################################################
 # Preinstall: Console output                   #
 ################################################
+
 loadkeys ru
 setfont cyr-sun16
 
@@ -70,8 +71,9 @@ ls /sys/firmware/efi/efivars
 
 # 7. Wipeout target disk
 lsblk
-# Wipeout LVM?
+
 umount /dev/sda1
+umount /dev/mapper/vg0-root
 umount /dev/mapper/vg0-home
 pvremove -y -ff /dev/sda*
 dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sda oflag=direct status=progress count=300000 && sync
