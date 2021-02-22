@@ -71,20 +71,23 @@ ls /sys/firmware/efi/efivars
 # 7. Wipeout target disk
 lsblk
 # Wipeout LVM?
-#pvremove -y -ff /dev/sda*
+dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sda oflag=direct status=progress count=300000 && sync
+pvremove -y -ff /dev/sda*
 
+# 8. New partiotions
 sudo parted -s /dev/sda mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
 
+# 8. LUKS crypt
 cryptsetup luksFormat /dev/sda2
 cryptsetup open /dev/sda2 cryptlvm
 
+# 9. LVM setup
 vgscan
 vgchange -ay
 
 vgcreate vg0 /dev/mapper/cryptlvm
-lvcreate -L 30G vg0 -n root
-lvcreate -L 16G vg0 -n swap
-lvcreate -L 177G vg0 -n home
+lvcreate -L 50G vg0 -n root
+lvcreate -L 173G vg0 -n home
 
 modprobe dm_mod
 
@@ -94,21 +97,24 @@ mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/home
 
-mkswap /dev/vg0/swap
-swapon /dev/vg0/swap
-
 mount /dev/vg0/root /mnt
-mkdir /mnt/boot
+
+mkdir -p /mnt/boot
 mount /dev/sda1 /mnt/boot
 
-mkdir /mnt/home
+mkdir -p /mnt/home
 mount /dev/vg0/home /mnt/home
+
 
 
 ################################################
 # Preinstall: Installation                     #
 ################################################
 
-basestrap /mnt base base-devel runit elogind-runit intel-ucode linux linux-firmware vim git dhcpcd-runit
+basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode linux linux-firmware vim git dhcpcd-runit
 
 fstabgen -U /mnt >> /mnt/etc/fstab
+
+
+artix-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/laptop-x101h-in-chroot)"
+
