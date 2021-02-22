@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sudo su
 
 ################################################
@@ -37,9 +39,9 @@ ping ntp.org -c 3
 ################################################
 
 # 5. Install tools: internet is required!
-pacman -Sy openssh-runit parted --noconfirm
-ln -s /etc/runit/sv/sshd /run/runit/service/sshd
-sv start sshd
+#pacman -Sy openssh-runit parted --noconfirm
+#ln -s /etc/runit/sv/sshd /run/runit/service/sshd
+#sv start sshd
 
 
 
@@ -109,6 +111,6 @@ mount /dev/vg0/home /mnt/home
 # Preinstall: Installation                     #
 ################################################
 
-basestrap /mnt base base-devel runit elogind-runit linux linux-firmware vim git dhcpcd-runit
+basestrap /mnt base base-devel runit elogind-runit intel-ucode linux linux-firmware vim git dhcpcd-runit
 
 fstabgen -U /mnt >> /mnt/etc/fstab
