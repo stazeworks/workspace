@@ -93,10 +93,13 @@ modprobe dm_mod
 
 lsblk /dev/sda
 
+# 9. Format partiotions
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/home
 
+
+# 10. Mount partiotions
 mount /dev/vg0/root /mnt
 
 mkdir -p /mnt/boot
@@ -108,13 +111,12 @@ mount /dev/vg0/home /mnt/home
 
 
 ################################################
-# Preinstall: Installation                     #
+# Installation                                 #
 ################################################
 
 basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode linux linux-firmware vim git dhcpcd-runit
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 
-
-artix-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/laptop-x101h-in-chroot)"
+artix-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/artix.chroot.sh)"
 
