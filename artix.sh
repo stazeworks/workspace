@@ -82,6 +82,10 @@ dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sda oflag=direct status=progress c
 # 8. New partiotions
 sudo parted -s /dev/sda mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
 
+# Load kernel modules for encryption
+modprobe dm-crypt
+modprobe dm-mod
+
 # 9. LUKS crypt
 cryptsetup benchmark
 cryptsetup --verbose --type luks1 --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --iter-time 10000 --use-random --verify-passphrase luksFormat /dev/sda2
@@ -91,12 +95,11 @@ cryptsetup luksOpen /dev/sda2 crypt
 vgscan
 vgchange -ay
 
-vgcreate vg0 /dev/mapper/crypt
-lvcreate -L 50G vg0 -n root
-lvcreate -L 173G vg0 -n home
-
-modprobe dm_mod
-
+pvcreate /dev/mapper/crypt
+vgcreate artix /dev/mapper/crypt
+lvcreate -L 50G artix -n root
+lvcreate -L 143G artix -n home
+lvcreate -L 30GG artix -n tmp
 lsblk /dev/sda
 
 # 9. Format partiotions
