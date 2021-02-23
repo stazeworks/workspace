@@ -101,5 +101,5 @@ basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode mkinitc
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 
-artix-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/artix.chroot.sh)"
+artix-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/stazeworks/workspace/master/basic/artix.chroot.sh)"
 
