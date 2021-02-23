@@ -120,7 +120,7 @@ mount /dev/vg0/home /mnt/home
 # Installation                                 #
 ################################################
 
-basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode linux linux-firmware vim git dhcpcd-runit
+basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode cryptsetup mkinitcpio linux  linux-firmware vim git dhcpcd-runit
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 

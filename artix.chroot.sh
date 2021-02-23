@@ -28,3 +28,23 @@ echo "127.0.1.1 aquinas.local aquinas" >> /etc/hosts
 
 # Root password
 passwd
+
+# Install software
+pacman -S linux-headers connman-runit wpa_supplicant bluez bluez-runit bluez-utils openvpn openvpn-runit efibootmgr
+ln -s /etc/runit/sv/connmand /etc/runit/runsvdir/default
+
+useradd -mG wheel staze
+passwd staze
+
+EDITOR=vim visudo
+
+# HOOKS="base udev autodetect modconf block encrypt keyboard keymap lvm2 resume filesystems fsck"
+vim /etc/mkinitcpio.conf
+
+blkid -s PARTUUID -o value /dev/sda2
+#efibootmgr --disk /dev/sda --part 1 --create --label "0x0000c31" --loader /vmlinuz-linux --unicode 'root=PARTUUID=f75c56e1-eeba-4a50-8d08-3ea0a08beb56 rw initrd=\initramfs-linux.img' --verbose
+
+
+#efibootmgr --disk /dev/sda --part 1 --create --label "0x0000c31" --loader /vmlinuz-linux --unicode 'cryptdevice=PARTUUID=f75c56e1-eeba-4a50-8d08-3ea0a08beb56:root root=/dev/mapper/ rw initrd=\initramfs-linux.img' --verbose
+
+#umount -R /mnt
