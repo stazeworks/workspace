@@ -73,8 +73,8 @@ ls /sys/firmware/efi/efivars
 lsblk
 
 umount /dev/sdb1
-umount /dev/mapper/vg0-root
-umount /dev/mapper/vg0-home
+umount /dev/mapper/artix-root
+umount /dev/mapper/artix-home
 pvremove -y -ff /dev/sdb*
 dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sdb oflag=direct status=progress count=300000 && sync
 
@@ -104,18 +104,18 @@ lsblk /dev/sdb
 
 # 9. Format partiotions
 mkfs.fat -F32 /dev/sdb1
-mkfs.ext4 /dev/vg0/root
-mkfs.ext4 /dev/vg0/home
+mkfs.ext4 /dev/artix/root
+mkfs.ext4 /dev/artix/home
 
 
 # 10. Mount partiotions
-mount /dev/vg0/root /mnt
+mount /dev/artix/root /mnt
 
 mkdir -p /mnt/boot
 mount /dev/sdb1 /mnt/boot
 
 mkdir -p /mnt/home
-mount /dev/vg0/home /mnt/home
+mount /dev/artix/home /mnt/home
 
 
 
