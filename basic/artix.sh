@@ -71,51 +71,25 @@ ls /sys/firmware/efi/efivars
 
 # 7. Wipeout target disk
 lsblk
-
-umount /dev/sdb1
-umount /dev/mapper/artix-root
-umount /dev/mapper/artix-home
-pvremove -y -ff /dev/sdb*
 dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sdb oflag=direct status=progress count=300000 && sync
 
-
 # 8. New partiotions
-sudo parted -s /dev/sdb mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
-
-# Load kernel modules for encryption
-modprobe dm-crypt
-modprobe dm-mod
-
-# 9. LUKS crypt
-cryptsetup benchmark
-cryptsetup --verbose --type luks1 --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --iter-time 10000 --use-random --verify-passphrase luksFormat /dev/sdb2
-cryptsetup luksOpen /dev/sdb2 crypt
-
-# 10. LVM setup
-vgscan
-vgchange -ay
-
-pvcreate /dev/mapper/crypt
-vgcreate artix /dev/mapper/crypt
-lvcreate -L 50G artix -n root
-lvcreate -L 143G artix -n home
-lvcreate -L 30GG artix -n tmp
-lsblk /dev/sdb
+sudo parted -s /dev/sdb mklabel gpt mkpart efi '0%' '512MB' mkpart root 513MB '30GB' mkpart home '31GB' '100%' set 1 esp on set 1 boot on print
 
 # 9. Format partiotions
 mkfs.fat -F32 /dev/sdb1
-mkfs.ext4 /dev/artix/root
-mkfs.ext4 /dev/artix/home
+mkfs.ext4 /dev/sdb2
+mkfs.ext4 /dev/sdb3
 
 
 # 10. Mount partiotions
-mount /dev/artix/root /mnt
+mount /dev/sdb2 /mnt
 
 mkdir -p /mnt/boot
 mount /dev/sdb1 /mnt/boot
 
 mkdir -p /mnt/home
-mount /dev/artix/home /mnt/home
+mount /dev/sdb3 /mnt/home
 
 
 
@@ -123,7 +97,7 @@ mount /dev/artix/home /mnt/home
 # Installation                                 #
 ################################################
 
-basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode cryptsetup mkinitcpio linux  linux-firmware vim git dhcpcd-runit
+basestrap /mnt base base-devel runit elogind-runit intel-ucode amd-ucode mkinitcpio linux linux-firmware vim git dhcpcd-runit
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 

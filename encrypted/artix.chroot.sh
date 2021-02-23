@@ -38,12 +38,7 @@ passwd staze
 
 EDITOR=vim visudo
 
-# HOOKS=(base udev autodetect modconf block encrypt keyboard keymap lvm2 resume filesystems fsck)
-sed -i 's/^HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block encrypt keyboard keymap lvm2 resume filesystems fsck)/' /etc/mkinitcpio.conf
-# vim /etc/mkinitcpio.conf
-
-blkid -s UUID -o value /dev/sdb2
-blkid -s UUID -o value /dev/mapper/artix-root
+mkinitcpio -p linux
 
 #efibootmgr --disk /dev/sdb --part 1 --create --label "0x0000c33" --loader /vmlinuz-linux --unicode 'cryptdevice=UUID=fcff6cc8-f1b5-441f-ae7e-421dfe0c9667:crypt root root=UUID=/47386ca5-44ac-492e-b07e-915020a32455 rw initrd=\initramfs-linux.img' --verbose
 
