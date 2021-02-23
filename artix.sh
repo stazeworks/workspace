@@ -72,15 +72,15 @@ ls /sys/firmware/efi/efivars
 # 7. Wipeout target disk
 lsblk
 
-umount /dev/sda1
+umount /dev/sdb1
 umount /dev/mapper/vg0-root
 umount /dev/mapper/vg0-home
-pvremove -y -ff /dev/sda*
-dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sda oflag=direct status=progress count=300000 && sync
+pvremove -y -ff /dev/sdb*
+dd bs=4096 if=/dev/zero iflag=nocache of=/dev/sdb oflag=direct status=progress count=300000 && sync
 
 
 # 8. New partiotions
-sudo parted -s /dev/sda mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
+sudo parted -s /dev/sdb mklabel gpt mkpart efi '0%' '512MB' mkpart crypt 513MB '100%' set 1 esp on set 1 boot on print
 
 # Load kernel modules for encryption
 modprobe dm-crypt
@@ -88,8 +88,8 @@ modprobe dm-mod
 
 # 9. LUKS crypt
 cryptsetup benchmark
-cryptsetup --verbose --type luks1 --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --iter-time 10000 --use-random --verify-passphrase luksFormat /dev/sda2
-cryptsetup luksOpen /dev/sda2 crypt
+cryptsetup --verbose --type luks1 --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --iter-time 10000 --use-random --verify-passphrase luksFormat /dev/sdb2
+cryptsetup luksOpen /dev/sdb2 crypt
 
 # 10. LVM setup
 vgscan
@@ -100,10 +100,10 @@ vgcreate artix /dev/mapper/crypt
 lvcreate -L 50G artix -n root
 lvcreate -L 143G artix -n home
 lvcreate -L 30GG artix -n tmp
-lsblk /dev/sda
+lsblk /dev/sdb
 
 # 9. Format partiotions
-mkfs.fat -F32 /dev/sda1
+mkfs.fat -F32 /dev/sdb1
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/home
 
@@ -112,7 +112,7 @@ mkfs.ext4 /dev/vg0/home
 mount /dev/vg0/root /mnt
 
 mkdir -p /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount /dev/sdb1 /mnt/boot
 
 mkdir -p /mnt/home
 mount /dev/vg0/home /mnt/home
