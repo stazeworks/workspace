@@ -5,7 +5,7 @@ swapon /swapfile
 
 # add swap to fstab 
 #/swapfile       none    swap    defaults        0       0
-vim /etc/fstab
+echo "/swapfile       none    swap    defaults        0       0" > /etc/fstab
 
 # Configure local time
 ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
@@ -45,6 +45,7 @@ blkid -s PARTUUID -o value /dev/sda2
 #efibootmgr --disk /dev/sda --part 1 --create --label "0x0000c31" --loader /vmlinuz-linux --unicode 'root=PARTUUID=f75c56e1-eeba-4a50-8d08-3ea0a08beb56 rw initrd=\initramfs-linux.img' --verbose
 
 
-#efibootmgr --disk /dev/sda --part 1 --create --label "0x0000c31" --loader /vmlinuz-linux --unicode 'cryptdevice=PARTUUID=f75c56e1-eeba-4a50-8d08-3ea0a08beb56:root root=/dev/mapper/ rw initrd=\initramfs-linux.img' --verbose
+#efibootmgr --disk /dev/sda --part 1 --create --label "0x0000c32" --loader /vmlinuz-linux --unicode 'cryptdevice=PARTUUID=f75c56e1-eeba-4a50-8d08-3ea0a08beb56:root root=/dev/mapper/vg0-root rw initrd=\initramfs-linux.img' --verbose
 
+#exit
 #umount -R /mnt
