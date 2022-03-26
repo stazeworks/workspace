@@ -41,26 +41,12 @@ ping ntp.org -c 3
 #ln -s /etc/runit/sv/sshd /run/runit/service/sshd
 #sv start sshd
 
-
-
-################################################
-# Preinstall: Time and Date                    #
-################################################
-
-timedatectl set-ntp true
-timedatectl set-timezone Europe/Moscow
-timedatectl status
-
-
-
 ################################################
 # Preinstall: Console output                   #
 ################################################
 
 loadkeys ru
 setfont cyr-sun16
-
-
 
 ################################################
 # Preinstall: Partiotions                      #
